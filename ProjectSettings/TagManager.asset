@@ -17,10 +17,10 @@ TagManager:
   - Not in Reflection
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - GoodCharacter
+  - EvilCharacter
+  - GoodProjectile
+  - EvilProjectile
   - 
   - 
   - 
