@@ -5,16 +5,16 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
 	public Action OnHit;
+	[SerializeField] float lifespan = 1f;
 	[SerializeField] Rigidbody rb = null;
 	Vector3 velocity;
 	Damage damage;
 
-	void Start() {
-		StartCoroutine(timeout());
-	}
-
 	public void Shoot(Vector3 velocity, Damage damage){
+		this.velocity = velocity;
+		this.damage = damage;
 		rb.velocity = velocity;
+		StartCoroutine(timeout());
 	}
 
 	void FixedUpdate(){
@@ -40,7 +40,7 @@ public class Projectile : MonoBehaviour
 	}
 
 	IEnumerator timeout(){
-		yield return new WaitForSeconds(1f);
+		yield return new WaitForSeconds(lifespan);
 		Destroy(gameObject);
 	}
 }

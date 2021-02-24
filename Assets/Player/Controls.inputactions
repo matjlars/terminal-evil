@@ -38,6 +38,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "Heal",
+                    "type": "Button",
+                    "id": "de7c9201-b093-47b5-b8a3-048fe0e713db",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "Fire0",
                     "type": "Button",
                     "id": "a3ae208b-e3a7-4797-8a47-a78c62b34d76",
@@ -348,6 +356,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Equip3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "807da6ad-1b1b-47db-af18-42c789ec9575",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Heal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3d652ab0-f302-43c5-b533-dfbb286bc303",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Heal",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

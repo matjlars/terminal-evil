@@ -15,6 +15,7 @@ public class PlayerControls : MonoBehaviour
 	InputAction equip1;
 	InputAction equip2;
 	InputAction equip3;
+	InputAction heal;
 
 	void OnEnable(){
 		if(move == null){
@@ -28,6 +29,7 @@ public class PlayerControls : MonoBehaviour
 			equip1 = controls.FindAction("Equip1");
 			equip2 = controls.FindAction("Equip2");
 			equip3 = controls.FindAction("Equip3");
+			heal = controls.FindAction("Heal");
 		}
 
 		move.Enable();
@@ -40,6 +42,7 @@ public class PlayerControls : MonoBehaviour
 		equip1.Enable();
 		equip2.Enable();
 		equip3.Enable();
+		heal.Enable();
 		Cursor.lockState = CursorLockMode.Locked;
 	}
 
@@ -54,6 +57,7 @@ public class PlayerControls : MonoBehaviour
 		equip1.Disable();
 		equip2.Disable();
 		equip3.Disable();
+		heal.Disable();
 		Cursor.lockState = CursorLockMode.None;
 	}
 
@@ -64,16 +68,19 @@ public class PlayerControls : MonoBehaviour
 		get{return look.ReadValue<Vector2>();}
 	}
 	public bool Jump{
-		get{return jump.ReadValue<float>() > 0.5f;}
+		get{return jump.ReadValue<float>() >= 0.5f;}
 	}
 	public bool Dash{
-		get{return dash.ReadValue<float>() > 0.5f;}
+		get{return dash.ReadValue<float>() >= 0.5f;}
 	}
 	public bool Fire0{
-		get{return fire0.ReadValue<float>() > 0.5f;}
+		get{return fire0.ReadValue<float>() >= 0.5f;}
 	}
 	public bool Fire1{
-		get{return fire1.ReadValue<float>() > 0.5f;}
+		get{return fire1.ReadValue<float>() >= 0.5f;}
+	}
+	public bool Heal{
+		get{return heal.triggered;}
 	}
 
 	/// <summary>

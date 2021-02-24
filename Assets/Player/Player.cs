@@ -6,67 +6,32 @@ public class Player : MonoBehaviour
 	[SerializeField] PlayerControls controls = null;
 	[SerializeField] PlayerWeapons weapons = null;
 	[SerializeField] DamageTarget dmgTarget = null;
+	[SerializeField] PlayerHealSpell healSpell = null;
+	
+	Vector2 rot;
+	NumberPool health = new NumberPool(100f);
+	NumberPool mana = new NumberPool(100f);
+	NumberPool stamina = new NumberPool(100f);
+
 	public const float speed = 18f;
 	public const float gravity = -30f;
 	public const float jumpSpeed = 20f;
 	public const float DashStaminaCost = 40f;
-	Vector2 rot;
-	float hp;
-	float mana;
-	float stamina;
-	const float maxHP = 100f;
-	const float maxMana = 100f;
-	const float maxStamina = 100f;
-	const float staminaRegen = 50f;
 	const float mouseSensitivity = .5f;
+	const float staminaRegen = 50f;
 
-	public float HPRatio{
-		get{return hp / maxHP;}
+	public NumberPool Health{
+		get{return health;}
 	}
-	public float ManaRatio{
-		get{return mana / maxMana;}
+	public NumberPool Mana{
+		get{return mana;}
 	}
-	public float StaminaRatio{
-		get{return stamina / maxStamina;}
-	}
-	public float Stamina{
+	public NumberPool Stamina{
 		get{return stamina;}
 	}
 
 	public PlayerControls Controls{
 		get{return controls;}
-	}
-
-	/// <summary>
-	/// Attempt to use up some stamina and return whether or not it was used.
-	/// It won't use up any if there isn't enough.
-	/// </summary>
-	/// <param name="amount"></param>
-	/// <returns></returns>
-	public bool UseStamina(float amount){
-		if(stamina >= amount){
-			stamina -= amount;
-			return true;
-		}
-		return false;
-	}
-
-	/// <summary>
-	/// Attempts to use up some mana and return whether or not it was used.
-	/// It won't use up any if there isn't enough.
-	/// </summary>
-	/// <param name="amount">The amount of mana to try to use.</param>
-	/// <returns>true means that much mana was used up, so you should do the effects.</returns>
-	public bool UseMana(float amount){
-		if(mana >= amount){
-			mana -= amount;
-			return true;
-		}
-		return false;
-	}
-	public void GainMana(float amount){
-		mana += amount;
-		if(mana > maxMana) mana = maxMana;
 	}
 
 	public void Die(){
@@ -75,9 +40,6 @@ public class Player : MonoBehaviour
 	}
 
 	void Start(){
-		hp = maxHP;
-		mana = maxMana;
-		stamina = maxStamina;
 		dmgTarget.OnHit += OnHit;
 	}
 
@@ -85,6 +47,7 @@ public class Player : MonoBehaviour
 		look();
 		regenStamina();
 		equipWeapons();
+		heal();
 	}
 
 	void look(){
@@ -96,8 +59,7 @@ public class Player : MonoBehaviour
 	}
 
 	void regenStamina(){
-		stamina += staminaRegen * Time.deltaTime;
-		if(stamina > maxStamina) stamina = maxStamina;
+		stamina.Gain(staminaRegen * Time.deltaTime);
 	}
 
 	void equipWeapons(){
@@ -105,8 +67,14 @@ public class Player : MonoBehaviour
 		if(idx >= 0) weapons.Equip(idx);
 	}
 
+	void heal(){
+		if(controls.Heal){
+			healSpell.Cast();
+		}
+	}
+
 	void OnHit(Damage damage){
-		hp -= damage.Amount;
-		if(hp <= 0f) Die();
+		health.Lose(damage.Amount);
+		if(health.Empty) Die();
 	}
 }

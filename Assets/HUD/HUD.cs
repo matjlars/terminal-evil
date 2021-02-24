@@ -19,8 +19,8 @@ public class HUD : MonoBehaviour
 			return;
 		}
 
-		health.fillAmount = player.HPRatio;
-		mana.fillAmount = player.ManaRatio;
-		stamina.fillAmount = player.StaminaRatio;
+		health.fillAmount = player.Health.Ratio;
+		mana.fillAmount = player.Mana.Ratio;
+		stamina.fillAmount = player.Stamina.Ratio;
 	}
 }

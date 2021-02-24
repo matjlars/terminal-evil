@@ -13,10 +13,7 @@ public class PlayerGroundedState : MonoBehaviour
 	}
 
 	void FixedUpdate(){
-		Vector2 move = player.Controls.Move;
-		Vector3 forward = transform.forward * move.y;
-		Vector3 right = transform.right * move.x;
-		Vector3 velocity = (forward + right).normalized * Player.speed;
+		Vector3 velocity = player.Controls.WorldMove * Player.speed;
 
 		velocity.y = character.velocity.y + (Player.gravity * Time.deltaTime);
 		
@@ -27,6 +24,6 @@ public class PlayerGroundedState : MonoBehaviour
 		character.Move(velocity * Time.deltaTime);
 
 		if(!character.isGrounded) sm.State = "Air";
-		if(player.Controls.Dash && player.UseStamina(Player.DashStaminaCost)) sm.State = "Dash";
+		if(player.Controls.Dash && player.Stamina.Use(Player.DashStaminaCost)) sm.State = "Dash";
 	}
 }
