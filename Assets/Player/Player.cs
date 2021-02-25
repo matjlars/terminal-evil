@@ -33,6 +33,9 @@ public class Player : MonoBehaviour
 	public PlayerControls Controls{
 		get{return controls;}
 	}
+	public Camera Camera{
+		get{return GetComponentInChildren<Camera>();}
+	}
 
 	public void Die(){
 		Debug.Log("You died");

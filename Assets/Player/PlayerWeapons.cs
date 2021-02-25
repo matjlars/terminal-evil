@@ -7,6 +7,7 @@ public class PlayerWeapons : MonoBehaviour
 	void Start(){
 		// set the first one to active
 		transform.GetChild(0).gameObject.SetActive(true);
+		current = transform.GetChild(0).gameObject;
 
 		// set the rest to inactive
 		for(int i = 1; i < transform.childCount; i++){
